@@ -139,7 +139,7 @@ img { max-width: 100%; display: block; }
   padding: 0;
   height: clamp(420px, 42.82vw, 780px);
   overflow: hidden;
-  background: var(--ink);
+  background: linear-gradient(135deg, var(--ink) 0%, #0d1620 55%, var(--accent-dark) 100%);
 }
 
 .hero-media {
