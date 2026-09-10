@@ -139,6 +139,7 @@ img { max-width: 100%; display: block; }
   padding: 0;
   height: clamp(420px, 42.82vw, 780px);
   overflow: hidden;
+  background: var(--ink);
 }
 
 .hero-media {
@@ -157,7 +158,7 @@ img { max-width: 100%; display: block; }
   min-width: 100%;
   min-height: 100%;
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
