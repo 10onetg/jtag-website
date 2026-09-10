@@ -137,7 +137,9 @@ img { max-width: 100%; display: block; }
 .hero.has-video {
   position: relative;
   padding: 0;
-  height: 640px;
+  aspect-ratio: 1920 / 822;
+  min-height: 420px;
+  max-height: 780px;
   overflow: hidden;
 }
 
