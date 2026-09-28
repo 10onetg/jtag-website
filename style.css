@@ -573,6 +573,33 @@ img { max-width: 100%; display: block; }
   margin: 0 auto;
 }
 
+.work-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-caption {
+  padding-top: 14px;
+}
+
+.work-caption .work-location {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.work-caption .work-note {
+  font-size: 0.86rem;
+  color: var(--ink-dim);
+  line-height: 1.75;
+}
+
+.work-item.vertical .work-caption {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
 @media (max-width: 720px) {
   .works-embed-grid { grid-template-columns: 1fr; }
 }
