@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JTAG | 簡易見積もり｜尾道・三原・福山のドローン空撮</title>
+<meta name="description" content="広島県尾道市を拠点に、三原・福山・しまなみ海道などでドローン空撮を行うJTAGの簡易見積もりシミュレーター。機体・撮影時間・編集・撮影エリアを選ぶだけで概算料金がわかります。">
+<link rel="canonical" href="https://jtag-works.jp/estimate.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="JTAG">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://jtag-works.jp/estimate.html">
+<meta property="og:title" content="JTAG | 簡易見積もり｜尾道・三原・福山のドローン空撮">
+<meta property="og:description" content="項目を選ぶだけでドローン空撮・映像制作の概算料金がわかる簡易見積もりシミュレーターです。">
+<meta property="og:image" content="https://i.ytimg.com/vi/NESI621NWUU/hqdefault.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JTAG | 簡易見積もり｜尾道・三原・福山のドローン空撮">
+<meta name="twitter:image" content="https://i.ytimg.com/vi/NESI621NWUU/hqdefault.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=11">
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img src="logo.png" alt="JTAG" width="40" height="40"></a>
+    <nav class="nav" id="nav">
+      <a href="index.html#about">サービス</a>
+      <a href="index.html#creative">映像制作</a>
+      <a href="works.html">作品</a>
+      <a href="index.html#pricing">料金</a>
+      <a href="index.html#profile">プロフィール</a>
+      <a href="pilot.html">パイロット業務委託</a>
+      <a href="index.html#contact" class="nav-cta">お問い合わせ</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="section works-page" id="top">
+  <div class="container">
+    <p class="section-eyebrow reveal">ESTIMATE</p>
+    <h1 class="section-title reveal">簡易見積もり</h1>
+    <p class="section-lead reveal">項目を選択すると、概算金額がリアルタイムで表示されます。実際のご依頼内容により金額は前後しますので、あくまで目安としてご利用ください。</p>
+
+    <div class="est-wrap">
+
+      <div class="est-step est-intro">
+        <div class="est-step-title">まずはプランをお選びください</div>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="plantype" value="video" checked>
+            <span class="est-label">動画プラン(ドローン映像撮影)</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="plantype" value="photo">
+            <span class="est-label">写真のみプラン(MAVIC3・2000万画素)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>機体を選択</div>
+        <p class="est-help">撮影内容に合わせて機体をお選びください。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="aircraft" value="mavic" checked>
+            <span class="est-label">MAVIC3(一般的な上空の空撮機)</span>
+            <span class="est-price">¥25,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="aircraft" value="avata">
+            <span class="est-label">AVATA2(FPVによるダイナミックな飛行)</span>
+            <span class="est-price">¥35,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="aircraft" value="custom">
+            <span class="est-label">自作機・100g未満(屋内や施設内など)</span>
+            <span class="est-price">¥50,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>成果物</div>
+        <p class="est-help">動画撮影に合わせて写真を追加することもできます(2〜3枚程度の納品です)。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="checkbox" name="deliverable" value="photo">
+            <span class="est-label">写真を追加する(2000万画素)</span>
+            <span class="est-price">+¥5,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>動画の解像度</div>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="resolution" value="fhd" checked>
+            <span class="est-label">フルHD(1920×1080)</span>
+            <span class="est-price">追加料金なし</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="resolution" value="4k">
+            <span class="est-label">4K(3840×2160)</span>
+            <span class="est-price">+¥5,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="photo">
+        <div class="est-step-title"><span class="est-step-num"></span>撮影内容</div>
+        <p class="est-help">MAVIC3での撮影、2000万画素での納品です。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="photoqty" value="basic" checked>
+            <span class="est-label">2〜3枚納品(1時間以内)</span>
+            <span class="est-price">¥15,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="photoqty" value="extended">
+            <span class="est-label">10枚以内納品(2時間以内)</span>
+            <span class="est-price">¥25,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step">
+        <div class="est-step-title"><span class="est-step-num"></span>拘束時間</div>
+        <p class="est-help" id="hoursHelp">2時間までは基本料金に含まれます。超過分のみ入力してください。</p>
+        <div class="est-number-row">
+          <input type="number" id="extraHours" min="0" step="1" value="0" aria-label="超過時間">
+          <span class="est-unit" id="hoursUnit">時間(2時間超過分) ×¥5,000</span>
+        </div>
+      </div>
+
+      <div class="est-step">
+        <div class="est-step-title"><span class="est-step-num"></span>撮影場所のエリア</div>
+        <p class="est-help">高速代・フェリー代などの実費は別途ご請求となります。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="travel" value="free" checked>
+            <span class="est-label">尾道市・福山市・三原市・府中市・竹原市</span>
+            <span class="est-price">¥0</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="travel" value="near">
+            <span class="est-label">近隣エリア(笠岡市・世羅町など)</span>
+            <span class="est-price">+¥3,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="travel" value="far">
+            <span class="est-label">遠方エリア(広島市・倉敷市・今治市など)</span>
+            <span class="est-price">+¥8,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="travel" value="other">
+            <span class="est-label">上記以外の遠方</span>
+            <span class="est-price">要問合せ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step">
+        <div class="est-step-title"><span class="est-step-num"></span>特定飛行(該当するものを選択)</div>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="checkbox" name="flightcond" value="event" data-price="30000">
+            <span class="est-label">イベント上空での飛行</span>
+            <span class="est-price">+¥30,000</span>
+          </label>
+          <label class="est-option">
+            <input type="checkbox" name="flightcond" value="high" data-price="30000">
+            <span class="est-label">150m以上の上空での飛行</span>
+            <span class="est-price">+¥30,000</span>
+          </label>
+          <label class="est-option">
+            <input type="checkbox" name="flightcond" value="night" data-price="10000">
+            <span class="est-label">夜間飛行</span>
+            <span class="est-price">+¥10,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step">
+        <div class="est-step-title"><span class="est-step-num"></span>撮影場所について</div>
+        <p class="est-help">夜間飛行を選択した場合は、場所に関わらず補助者が必要になります。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="site" value="controlled" checked>
+            <span class="est-label">私有地など、関係者以外が立ち入れない管理された場所</span>
+            <span class="est-price">補助者不要</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="site" value="open">
+            <span class="est-label">上記以外(第三者が立ち入る可能性がある場所)</span>
+            <span class="est-price">+¥10,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>編集オプション</div>
+        <p class="est-help">カット編集・BGM挿入・カラー調整込みの料金です。</p>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="edit" value="none" checked>
+            <span class="est-label">編集なし(撮影データのみ納品)</span>
+            <span class="est-price">¥0</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="edit" value="30s">
+            <span class="est-label">30秒以内</span>
+            <span class="est-price">¥5,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="edit" value="1m">
+            <span class="est-label">1分以内</span>
+            <span class="est-price">¥10,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="edit" value="2m">
+            <span class="est-label">2分以内</span>
+            <span class="est-price">¥15,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="edit" value="3m">
+            <span class="est-label">3分以内</span>
+            <span class="est-price">¥25,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="edit" value="over3m">
+            <span class="est-label">3分を超える</span>
+            <span class="est-price">要問合せ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>地上撮影オプション</div>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="ground" value="none" checked>
+            <span class="est-label">追加しない</span>
+            <span class="est-price">¥0</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="fixed">
+            <span class="est-label">固定カメラ映像(1カメ・無人)</span>
+            <span class="est-price">+¥10,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="manned-self">
+            <span class="est-label">有人撮影(ドローン操縦者が別途撮影)</span>
+            <span class="est-price">+¥15,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="manned-crew">
+            <span class="est-label">有人撮影(別途カメラマンを手配)</span>
+            <span class="est-price">+¥30,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-summary" aria-live="polite">
+        <div class="est-summary-title">お見積り内訳</div>
+        <ul class="est-breakdown" id="breakdown"></ul>
+        <div id="totalBlock"></div>
+        <div class="est-disclaimer">
+          ※上記はあくまで目安の金額です。実際のご依頼内容・現地状況により変動する場合があります。<br>
+          ※天候不良時の予備日設定は別途加算となる場合があります。
+        </div>
+      </div>
+
+      <div class="est-cta">
+        <p>この内容で依頼したい・詳しく相談したい方はこちらからどうぞ。</p>
+        <a href="index.html#contact" class="btn btn-primary">お問い合わせへ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© <span id="year"></span> JTAG — 広島県尾道市</span>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/jun_jtag/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js?v=3"></script>
+<script src="estimate.js?v=1"></script>
+</body>
+</html>
