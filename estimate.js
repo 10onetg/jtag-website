@@ -10,7 +10,8 @@ const PHOTO_ADDON = 5000;
 const FOURK_ADDON = 5000;
 const ASSISTANT_PRICE = 10000;
 
-const yen = (n) => '¥' + n.toLocaleString('ja-JP');
+const TAX_RATE = 1.1;
+const yen = (n) => '¥' + Math.round(n * TAX_RATE).toLocaleString('ja-JP');
 const checkedValue = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
 const labelOf = (name) =>
   document.querySelector(`input[name="${name}"]:checked`).closest('.est-option').querySelector('.est-label').textContent;
@@ -98,7 +99,7 @@ function calculate() {
 
   let html = `
     <div class="est-total-row">
-      <span class="est-total-label">概算合計</span>
+      <span class="est-total-label">概算合計(税込)</span>
       <span class="est-total-amount">${yen(total)}<small> 〜</small></span>
     </div>`;
   inquiryReasons.forEach((reason) => {
