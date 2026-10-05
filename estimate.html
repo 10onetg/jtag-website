@@ -49,7 +49,7 @@
     <p class="section-eyebrow reveal">ESTIMATE</p>
     <h1 class="section-title reveal">簡易見積もり</h1>
     <p class="section-lead reveal">「まずはざっくり金額が知りたい」という方のためのシミュレーターです。項目を選ぶと、概算金額がその場で表示されます。</p>
-    <p class="section-lead reveal">入力した内容が送られることはなく、使っただけでこちらから連絡することもありません。営業もしませんので、気軽に試してみてください。</p>
+    <p class="section-lead reveal">「お問い合わせ」から送信しない限り、入力した内容が送られることはありません。使っただけでこちらから連絡することもなく、営業もしませんので、気軽に試してみてください。</p>
 
     <div class="est-wrap">
 
@@ -283,12 +283,39 @@
       </div>
 
       <div class="est-cta">
-        <p>具体的に相談したい方は、こちらからお気軽にどうぞ！</p>
-        <a href="index.html#contact" class="btn btn-primary">お問い合わせへ</a>
+        <p>具体的に相談したい方は、この見積もりの内容を添えて、こちらからお気軽にどうぞ！</p>
+        <button type="button" class="btn btn-primary" id="openQuoteModal">この内容で相談する</button>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal-overlay" id="quoteModalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
+    <button type="button" class="modal-close" id="closeQuoteModal" aria-label="閉じる">×</button>
+    <h3 id="quoteModalTitle">この内容で相談する</h3>
+    <p>選んだ見積もりの内容は、このまま一緒に送信されます。どのような撮影か、わかる範囲でご記入ください。</p>
+    <div class="est-modal-summary" id="modalSummary"></div>
+    <form id="quoteForm" action="https://formspree.io/f/xwlkayqq" method="POST">
+      <input type="hidden" name="_subject" value="【JTAG】簡易見積もりからのご相談">
+      <textarea name="estimate" id="estimateField" hidden></textarea>
+      <div class="form-row">
+        <label for="qName">お名前<span class="req">必須</span></label>
+        <input type="text" id="qName" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="qEmail">メールアドレス<span class="req">必須</span></label>
+        <input type="email" id="qEmail" name="email" required>
+      </div>
+      <div class="form-row">
+        <label for="qMessage">どのような撮影ですか？<span class="req">必須</span></label>
+        <textarea id="qMessage" name="message" rows="5" placeholder="撮影場所・希望日程・撮りたいイメージ・ご予算感などをご記入ください" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">送信する</button>
+      <p class="form-status" id="formStatus" role="status" hidden></p>
+    </form>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="container footer-inner">
@@ -297,9 +324,11 @@
       <a href="https://www.instagram.com/jun_jtag/" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
+  <div class="container footer-note">当サイトでは、アクセス解析にGoogleアナリティクスを使用しています。</div>
 </footer>
 
-<script src="script.js?v=3"></script>
-<script src="estimate.js?v=2"></script>
+<script src="analytics.js?v=1"></script>
+<script src="script.js?v=4"></script>
+<script src="estimate.js?v=3"></script>
 </body>
 </html>

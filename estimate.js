@@ -106,8 +106,32 @@ function calculate() {
     html += `<div class="est-inquiry">${escapeHtml(reason)}</div>`;
   });
   document.getElementById('totalBlock').innerHTML = html;
+
+  const planName = plantype === 'video' ? '動画プラン' : '写真のみプラン';
+  const lines = ['【簡易見積もりの内容】', `プラン：${planName}`];
+  items.forEach(([label, price]) => lines.push(`・${label}　${yen(price)}`));
+  lines.push(`概算合計(税込)：${yen(total)} 〜`);
+  inquiryReasons.forEach((reason) => lines.push(`※${reason}`));
+  document.getElementById('estimateField').value = lines.join('\n');
+
+  document.getElementById('modalSummary').innerHTML =
+    `<strong>${planName}</strong><ul>` +
+    items.map(([label, price]) => `<li><span>${escapeHtml(label)}</span><span>${yen(price)}</span></li>`).join('') +
+    `</ul><strong>概算合計(税込)：${yen(total)} 〜</strong>` +
+    inquiryReasons.map((r) => `<div>※${escapeHtml(r)}</div>`).join('');
 }
 
-document.querySelectorAll('.est-wrap input').forEach((el) => el.addEventListener('change', calculate));
-document.getElementById('extraHours').addEventListener('input', calculate);
+let estimateStarted = false;
+function trackStart() {
+  if (estimateStarted) return;
+  estimateStarted = true;
+  if (window.jtagTrack) window.jtagTrack('estimate_start');
+}
+
+document.querySelectorAll('.est-wrap input').forEach((el) => el.addEventListener('change', () => { trackStart(); calculate(); }));
+document.getElementById('extraHours').addEventListener('input', () => { trackStart(); calculate(); });
+document.getElementById('openQuoteModal').addEventListener('click', () => {
+  if (window.jtagTrack) window.jtagTrack('estimate_open_inquiry');
+});
+document.getElementById('quoteForm').addEventListener('reset', () => setTimeout(calculate, 0));
 calculate();

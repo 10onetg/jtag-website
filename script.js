@@ -71,6 +71,7 @@ if (quoteForm) {
       });
 
       if (response.ok) {
+        if (window.jtagTrack) window.jtagTrack('inquiry_submit');
         quoteForm.reset();
         formStatus.textContent = 'お問い合わせを送信しました。ありがとうございます。折り返しご連絡いたします。';
         formStatus.className = 'form-status success';
