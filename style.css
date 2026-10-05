@@ -871,6 +871,11 @@ img { max-width: 100%; display: block; }
   color: var(--ink-dim);
 }
 
+.profile-list a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
 .profile-list li::before {
   content: '✓';
   position: absolute;
