@@ -1135,3 +1135,6 @@ img { max-width: 100%; display: block; }
 .est-modal-summary strong { color: var(--ink); }
 .est-modal-summary ul { list-style: none; margin: 6px 0; padding: 0; }
 .est-modal-summary li { display: flex; justify-content: space-between; gap: 12px; padding: 1px 0; }
+
+.works-lead { text-wrap: balance; }
+.works-lead span { display: inline-block; }
