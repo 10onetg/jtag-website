@@ -53,6 +53,10 @@
 - 「この内容で相談する」フォーム（Formspree）で送信した場合のみ、選択内容と相談文が届く。
 - アクセス解析には、利用回数だけを送る（estimate_start / estimate_open_inquiry / inquiry_submit）。**選択内容はGoogleアナリティクスに送らない。**
 
+## プライバシーポリシー・フッター
+- プライバシーポリシーは privacy.html（フォーム、アクセス解析、外部サービスの利用を記載）。**外部サービスを増やしたり、取得する情報が変わったら、このページも更新する。**
+- フッターは全ページ共通（サイトメニュー・リンク・連絡先・アクセス解析の説明）。メニューを変えたら、index.html / works.html / pilot.html / estimate.html / privacy.html のフッターを、すべて同じ内容にそろえる。上のナビゲーション（ヘッダー）は項目が多いので、増やさない。
+
 ## 計測
 - GA4: プロパティ「JTAG」（測定ID G-0HTQPTX8YP、analytics.js に設定済み）。同じAnalyticsアカウントにある別ブログ用プロパティには触れない。
 - Search Console: URLプレフィックス https://jtag-works.jp/ 。所有権確認ファイル `googlef28709e944554d4e.html` は削除しない。
