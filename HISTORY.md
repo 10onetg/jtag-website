@@ -24,6 +24,9 @@
 - 別のパソコン（クラウドのClaude）でWEBゲームを作り、広告収入（AdSense・アフィリエイト）を狙う。
 - サイトのリポジトリには入れず、別リポジトリ＋Cloudflare Pages＋game.jtag-works.jp で公開する方針にした。理由は、通信量でNetlifyの枠が尽きて営業用サイトが止まるのを避けるため、営業サイトに広告を載せないため、広告の審査や規約の影響を分けるため。
 - 実行順: ゲーム用リポジトリ作成 → Cloudflare Pages公開 → NetlifyのDNSにgameのCNAMEを追加 → プライバシーポリシー → AdSense審査。
+- 10月20日に実行済み: ゲーム用リポジトリ 10onetg/drone-game（クラウド側のClaudeが作成）→ Cloudflare Pages で公開（アカウントはJunが作成、GitHub連携は drone-game だけに限定）→ NetlifyのDNSに `game` のCNAME（→ drone-game.pages.dev）を1行追加 → https://game.jtag-works.jp/ が有効（SSLあり）。Netlify側の既存のDNS（jtag-works.jp と www）は変更なし。
+- 残り: ゲーム側のアナリティクス測定IDの設定、プライバシーポリシーの最終確認、AdSense審査（Jun本人が申し込み）、アフィリエイト登録（Jun本人）、JTAGのサイトからゲームへのリンク（紹介ページ）。
+- Netlifyへのログインは、GitHubの「10onetg」で行う（Googleでログインすると「このメールは既に使用中」になる）。
 
 ## 計測の状況（10月16日時点）
 - Search Console: 9/30〜10/13で表示23回・クリック5回・平均5位。
