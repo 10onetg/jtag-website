@@ -26,6 +26,9 @@
 - 実行順: ゲーム用リポジトリ作成 → Cloudflare Pages公開 → NetlifyのDNSにgameのCNAMEを追加 → プライバシーポリシー → AdSense審査。
 - 10月20日に実行済み: ゲーム用リポジトリ 10onetg/drone-game（クラウド側のClaudeが作成）→ Cloudflare Pages で公開（アカウントはJunが作成、GitHub連携は drone-game だけに限定）→ NetlifyのDNSに `game` のCNAME（→ drone-game.pages.dev）を1行追加 → https://game.jtag-works.jp/ が有効（SSLあり）。Netlify側の既存のDNS（jtag-works.jp と www）は変更なし。
 - 残り: ゲーム側のアナリティクス測定IDの設定、プライバシーポリシーの最終確認、AdSense審査（Jun本人が申し込み）、アフィリエイト登録（Jun本人）、JTAGのサイトからゲームへのリンク（紹介ページ）。
+- 10月20日: AdSense（既存のYouTube用アカウント pub-5603206505764083 にサイト用を追加）。サイトは親ドメイン jtag-works.jp で登録（サブドメインは単独登録不可）。所有確認は ads.txt（jtag-works.jp/ads.txt を公開）で完了。審査のリクエストはJun本人が押す。支払い先の住所は修正済み。
+- 10月20日: ゲーム用のアナリティクス。JTAG用とは別のプロパティ「JTAG ゲーム（はじめてのフライト）」（番号 559733010、ストリーム game.jtag-works.jp）を作成。測定ID G-968VQMM06X（JTAGサイト用は G-0HTQPTX8YP で別）。ゲームの analytics.js に入れるのはクラウド側のClaudeの作業。
+- Amazonアソシエイト: Junは登録済み。ゲーム側に「室内練習機」のリンク2つが設定済み。ほかの枠（空撮用ドローン・プロペラガード・予備バッテリー・風速計・ランディングパッド）は未設定。サイトの登録欄に game.jtag-works.jp と drone-game.pages.dev を追加済み。
 - Netlifyへのログインは、GitHubの「10onetg」で行う（Googleでログインすると「このメールは既に使用中」になる）。
 
 ## 計測の状況（10月16日時点）
