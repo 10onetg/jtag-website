@@ -1003,16 +1003,16 @@ img { max-width: 100%; display: block; }
 
 .modal > p a { color: var(--accent-dark); text-decoration: underline; }
 
-.privacy-body { max-width: 760px; }
-.privacy-body h2 {
+.privacy-body, .local-body { max-width: 760px; }
+.privacy-body h2, .local-body h2 {
   font-family: var(--display);
   font-size: 1.1rem;
   margin: 36px 0 10px;
   color: var(--ink);
 }
-.privacy-body p, .privacy-body li { color: var(--ink-dim); font-size: 0.92rem; line-height: 1.95; }
-.privacy-body ul { margin: 6px 0 6px 1.4em; }
-.privacy-body a { color: var(--accent-dark); text-decoration: underline; }
+.privacy-body p, .privacy-body li, .local-body p, .local-body li { color: var(--ink-dim); font-size: 0.92rem; line-height: 1.95; }
+.privacy-body ul, .local-body ul { margin: 6px 0 6px 1.4em; }
+.privacy-body a, .local-body a { color: var(--accent-dark); text-decoration: underline; }
 
 /* Responsive */
 @media (max-width: 860px) {
@@ -1183,3 +1183,12 @@ img { max-width: 100%; display: block; }
 
 .works-lead { text-wrap: balance; }
 .works-lead span { display: inline-block; }
+
+.local-body { margin-top: 48px; }
+.local-body h3 {
+  font-size: 0.98rem;
+  margin: 22px 0 4px;
+  color: var(--ink);
+}
+.local-body h3::before { content: "Q. "; color: var(--accent); font-weight: 800; }
+.local-h2 { font-size: 1.3rem; margin: 56px 0 24px; }
