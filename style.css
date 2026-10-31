@@ -1003,16 +1003,16 @@ img { max-width: 100%; display: block; }
 
 .modal > p a { color: var(--accent-dark); text-decoration: underline; }
 
-.privacy-body, .local-body { max-width: 760px; }
-.privacy-body h2, .local-body h2 {
+.privacy-body, .local-body, .guide-body { max-width: 760px; }
+.privacy-body h2, .local-body h2, .guide-body h2 {
   font-family: var(--display);
   font-size: 1.1rem;
   margin: 36px 0 10px;
   color: var(--ink);
 }
-.privacy-body p, .privacy-body li, .local-body p, .local-body li { color: var(--ink-dim); font-size: 0.92rem; line-height: 1.95; }
-.privacy-body ul, .local-body ul { margin: 6px 0 6px 1.4em; }
-.privacy-body a, .local-body a { color: var(--accent-dark); text-decoration: underline; }
+.privacy-body p, .privacy-body li, .local-body p, .local-body li, .guide-body p, .guide-body li { color: var(--ink-dim); font-size: 0.92rem; line-height: 1.95; }
+.privacy-body ul, .local-body ul, .guide-body ul { margin: 6px 0 6px 1.4em; }
+.privacy-body a, .local-body a, .guide-body a { color: var(--accent-dark); text-decoration: underline; }
 
 /* Responsive */
 @media (max-width: 860px) {
@@ -1192,3 +1192,29 @@ img { max-width: 100%; display: block; }
 }
 .local-body h3::before { content: "Q. "; color: var(--accent); font-weight: 800; }
 .local-h2 { font-size: 1.3rem; margin: 56px 0 24px; }
+
+.guide-title { font-size: clamp(1.5rem, 4.2vw, 2.1rem); line-height: 1.5; text-wrap: balance; }
+.guide-meta { font-size: 0.82rem; color: var(--ink-dim); margin: -4px 0 18px; }
+.guide-body { margin-top: 36px; }
+.guide-body h3 { font-size: 0.98rem; margin: 22px 0 4px; color: var(--ink); }
+.guide-body strong { color: var(--ink); }
+.guide-body .quote-cta { margin-top: 40px; }
+.guide-disclaimer {
+  margin-top: 36px;
+  padding: 14px 18px;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+.guide-list { display: grid; gap: 14px; margin-top: 8px; }
+.guide-card {
+  display: block;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none !important;
+  transition: border-color 0.2s, background 0.2s;
+}
+.guide-card:hover { border-color: var(--accent); background: var(--accent-soft); }
+.guide-card h3 { margin: 0 0 6px; font-size: 1.02rem; color: var(--accent-dark); }
+.guide-card p { margin: 0; }
