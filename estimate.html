@@ -209,8 +209,34 @@
       </div>
 
       <div class="est-step" data-mode="video">
+        <div class="est-step-title"><span class="est-step-num"></span>地上撮影オプション</div>
+        <div class="est-options">
+          <label class="est-option">
+            <input type="radio" name="ground" value="none" checked>
+            <span class="est-label">追加しない</span>
+            <span class="est-price">¥0</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="fixed">
+            <span class="est-label">固定カメラ映像(1カメ・無人)</span>
+            <span class="est-price">+¥11,000</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="manned-self">
+            <span class="est-label">有人撮影(ドローン操縦者が別途撮影)</span>
+            <span class="est-price">+¥16,500</span>
+          </label>
+          <label class="est-option">
+            <input type="radio" name="ground" value="manned-crew">
+            <span class="est-label">有人撮影(別途カメラマンを手配)</span>
+            <span class="est-price">+¥33,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="est-step" data-mode="video">
         <div class="est-step-title"><span class="est-step-num"></span>編集オプション</div>
-        <p class="est-help">カット編集・BGM挿入・カラー調整込みの料金です。</p>
+        <p class="est-help">カット編集・BGM挿入（著作権フリー）・カラー調整込みの料金です。</p>
         <div class="est-options">
           <label class="est-option">
             <input type="radio" name="edit" value="none" checked>
@@ -241,32 +267,6 @@
             <input type="radio" name="edit" value="over3m">
             <span class="est-label">3分を超える</span>
             <span class="est-price">要問合せ</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="est-step" data-mode="video">
-        <div class="est-step-title"><span class="est-step-num"></span>地上撮影オプション</div>
-        <div class="est-options">
-          <label class="est-option">
-            <input type="radio" name="ground" value="none" checked>
-            <span class="est-label">追加しない</span>
-            <span class="est-price">¥0</span>
-          </label>
-          <label class="est-option">
-            <input type="radio" name="ground" value="fixed">
-            <span class="est-label">固定カメラ映像(1カメ・無人)</span>
-            <span class="est-price">+¥11,000</span>
-          </label>
-          <label class="est-option">
-            <input type="radio" name="ground" value="manned-self">
-            <span class="est-label">有人撮影(ドローン操縦者が別途撮影)</span>
-            <span class="est-price">+¥16,500</span>
-          </label>
-          <label class="est-option">
-            <input type="radio" name="ground" value="manned-crew">
-            <span class="est-label">有人撮影(別途カメラマンを手配)</span>
-            <span class="est-price">+¥33,000</span>
           </label>
         </div>
       </div>
@@ -358,6 +358,6 @@
 
 <script src="analytics.js?v=1"></script>
 <script src="script.js?v=4"></script>
-<script src="estimate.js?v=3"></script>
+<script src="estimate.js?v=4"></script>
 </body>
 </html>

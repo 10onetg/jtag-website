@@ -83,14 +83,14 @@ function calculate() {
   }
 
   if (plantype === 'video') {
+    const ground = checkedValue('ground');
+    if (GROUND_PRICE[ground] > 0) add(labelOf('ground'), GROUND_PRICE[ground]);
     const edit = checkedValue('edit');
     if (edit === 'over3m') {
       inquiryReasons.push('編集3分超が選択されています。この場合は自動見積もり対象外のため、お問い合わせください。');
     } else if (EDIT_PRICE[edit] > 0) {
       add(labelOf('edit'), EDIT_PRICE[edit]);
     }
-    const ground = checkedValue('ground');
-    if (GROUND_PRICE[ground] > 0) add(labelOf('ground'), GROUND_PRICE[ground]);
   }
 
   document.getElementById('breakdown').innerHTML = items
