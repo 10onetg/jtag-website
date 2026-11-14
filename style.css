@@ -1198,6 +1198,7 @@ img { max-width: 100%; display: block; }
 .guide-body { margin-top: 36px; }
 .guide-body h3 { font-size: 0.98rem; margin: 22px 0 4px; color: var(--ink); }
 .guide-body strong { color: var(--ink); }
+.guide-body ol { margin: 6px 0 6px 1.6em; }
 .guide-body .quote-cta { margin-top: 40px; }
 .guide-disclaimer {
   margin-top: 36px;
