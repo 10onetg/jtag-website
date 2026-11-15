@@ -1,5 +1,5 @@
 const AIRCRAFT_PRICE = { mavic: 25000, avata: 35000, custom: 50000 };
-const EDIT_PRICE = { none: 0, '30s': 5000, '1m': 10000, '2m': 15000, '3m': 25000 };
+const EDIT_PRICE = { none: 0, '30s': 10000, '1m': 15000, '2m': 25000, '3m': 35000 };
 const GROUND_PRICE = { none: 0, fixed: 10000, 'manned-self': 15000, 'manned-crew': 30000 };
 const PHOTO_PRICE = { basic: 15000, extended: 25000 };
 const PHOTO_HOURS = { basic: 1, extended: 2 };
