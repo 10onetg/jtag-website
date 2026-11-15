@@ -7,7 +7,7 @@ const TRAVEL_PRICE = { free: 0, near: 3000, far: 8000 };
 const TRAVEL_NAME = { near: '近隣エリア', far: '遠方エリア' };
 const HOUR_PRICE = 5000;
 const PHOTO_ADDON = 5000;
-const FOURK_ADDON = 5000;
+const FOURK_ADDON = 10000;
 const ASSISTANT_PRICE = 10000;
 
 const TAX_RATE = 1.1;
