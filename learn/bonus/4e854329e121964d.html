@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<script src="../../analytics.js?v=1"></script>
+<title>はじめて飛ばすまでの実務フローチャート</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700&display=swap">
+<style>
+/* Layout: one reading column of clean cards; each step has 4 labeled rows */
+:root{
+  --bg:#f5f7fb; --panel:#ffffff; --panel2:#eef2f9; --line:#d5dceb; --fg:#1d2433; --muted:#5b6578;
+  --accent:#1f5fbf; --sky:#1f5fbf; --red:#c62f2f; --green:#1f8a4c; --gold:#b26a00; --stepbg:#1f5fbf; --stepfg:#ffffff;
+  --head:"Zen Kaku Gothic New","Noto Sans JP",system-ui,sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161f; --panel:#1a2130; --panel2:#222b3d; --line:#334059; --fg:#e8ecf4; --muted:#a3adc2;
+  --accent:#7fb0ff; --sky:#7fb0ff; --red:#ff8a8a; --green:#6fd59a; --gold:#ffc56b; --stepbg:#7fb0ff; --stepfg:#11161f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161f; --panel:#1a2130; --panel2:#222b3d; --line:#334059; --fg:#e8ecf4; --muted:#a3adc2;
+  --accent:#7fb0ff; --sky:#7fb0ff; --red:#ff8a8a; --green:#6fd59a; --gold:#ffc56b; --stepbg:#7fb0ff; --stepfg:#11161f; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.85}
+.wrap{max-width:860px;margin:0 auto;padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--head);font-weight:700;text-wrap:balance;margin:0;line-height:1.45}
+h1{font-size:clamp(24px,5vw,32px)}
+h2{font-size:21px}
+h3{font-size:18px}
+p{margin:0}
+a{color:var(--accent)}
+.win{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;min-width:0}
+.eyebrow{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.06em}
+.warn{border-color:var(--red);border-width:2px}
+.warn strong{color:var(--red)}
+.hero{display:flex;flex-direction:column;gap:10px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 10px;font-size:14px;align-items:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:0 7px;border:1.5px solid currentColor;border-radius:999px;line-height:1.7;white-space:nowrap}
+.t-pub{color:var(--sky)} .t-law{color:var(--red)} .t-est{color:var(--green)} .t-ask{color:var(--gold)}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{text-decoration:none;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.flow{display:flex;flex-direction:column;align-items:stretch}
+.node{border:1.5px solid var(--line);background:var(--panel2);border-radius:8px;padding:10px 14px;font-size:15px}
+.node b{color:var(--accent);margin-right:6px}
+.q{border-style:dashed;border-color:var(--accent);background:var(--panel)}
+.arrow{text-align:center;color:var(--muted);line-height:1.3;padding:3px 0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split .node{height:100%}
+.yes{border-color:var(--red)} .yes b{color:var(--red)}
+.no{border-color:var(--green)} .no b{color:var(--green)}
+.small{font-size:13px;color:var(--muted)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:700}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hot td{color:var(--red);font-weight:700}
+.step{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.step-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.stepno{background:var(--stepbg);color:var(--stepfg);font-weight:700;border-radius:6px;padding:0 10px;font-size:15px}
+.who{font-size:14px;color:var(--muted)}
+.row{display:grid;grid-template-columns:8em 1fr;gap:14px;border-top:1px solid var(--line);padding-top:12px}
+.row>div{min-width:0}
+.lab{font-weight:700;font-size:14px}
+.l-do{color:var(--sky)} .l-why{color:var(--green)} .l-day{color:var(--gold)} .l-ng{color:var(--red)}
+ul,ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:4px}
+ol ol,ul ul{margin-top:4px}
+.day{font-size:17px;font-weight:700;color:var(--gold)}
+.mistakes{gap:8px}
+.x{color:var(--red);font-weight:700}
+.o{color:var(--green);font-weight:700}
+.check{columns:2 16em;column-gap:24px;list-style:none;padding:0;display:block}
+.check li{break-inside:avoid;padding:2px 0}
+.check li::before{content:"□ ";color:var(--accent)}
+.src{font-size:14px;color:var(--muted)}
+.src li{word-break:break-all}
+footer{font-size:13px;color:var(--muted);text-align:center}
+@media (max-width:560px){.row{grid-template-columns:1fr;gap:4px}.split{grid-template-columns:1fr}.win{padding:16px}}
+</style><style>.verbox{margin:0 0 14px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.7}.verbox.web{background:#e8f1ff;border:1px solid #9cc0f5;color:#123}.verbox.pdf{background:#fff4e0;border:2px solid #e0a030;color:#3a2500}.verbox b{font-size:15px}</style>
+
+<div class="wrap">
+
+<header class="win hero">
+  <span class="eyebrow">ドローンRPG〜初級編〜 クリア特典</span>
+  <h1>はじめて飛ばすまでの<br>実務フローチャート</h1>
+  <p>機体を選ぶところから、飛ばしたあとの記録まで。ステップごとに「次にやること」「何のため」「目安の日数」「まちがいやすい注意」をまとめました。</p>
+  <div class="verbox web"><b>Web版（2026年11月版・最終更新 2026年11月20日）</b><br>このWeb版は、法律や国の手続きが変わったときに、内容を更新していきます。ブックマークしておくと、いつでも最新の内容を確認できます。</div><div class="legend">
+    <span class="tag t-pub">公式</span>国の文書に書いてある
+    <span class="tag t-law">法律</span>法律で決まっている（罰則あり）
+    <span class="tag t-est">目安</span>公式の数字がない実務の目安
+    <span class="tag t-ask">相談</span>管理者などと相談して決める
+  </div>
+</header>
+
+<section class="win warn">
+  <p><strong>ご注意</strong>　この資料は2026年11月時点の航空法・小型無人機等飛行禁止法・国土交通省の要領などをもとに作っています。法令や手数料は変わることがあります。実際に飛ばす前に、最新の法令・国土交通省の案内・飛ばす場所の条例やルールを必ず確認してください。</p>
+</section>
+
+<nav class="toc" aria-label="目次">
+  <a href="#flow">全体の流れ</a><a href="#calendar">逆算カレンダー</a>
+  <a href="#s0">1 機体</a><a href="#s1">2 登録</a><a href="#s2">3 場所</a><a href="#s3">4 飛ばし方</a><a href="#s4">5 練習</a><a href="#s5">6 申請</a><a href="#s6">7 管理者</a><a href="#s7">8 前日</a><a href="#s8">9 当日</a><a href="#s9">10 飛行後</a><a href="#accident">事故</a><a href="#cases">ケース</a><a href="#mistakes">まちがい10</a><a href="#check">チェック</a><a href="#sources">出典</a>
+</nav>
+
+<section class="win" id="flow">
+  <h2>全体の流れ</h2>
+  <p class="small">国土交通省「手続きの流れ」「飛行申請フロー」をもとに、初心者が迷う順番に組み直しています。</p>
+  <div class="flow" style="margin-top:12px">
+    <div class="node"><b>STEP1</b>機体を選ぶ。重さは？（機体＋バッテリー）</div>
+    <div class="arrow">▼</div>
+    <div class="split">
+      <div class="node no"><b>100g未満</b>登録は不要。STEP3へ<br><span class="small">ただし空港周辺・重要施設周辺・条例などは対象</span></div>
+      <div class="node yes"><b>100g以上</b>STEP2 機体登録・登録記号の表示・リモートID</div>
+    </div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP3</b>「場所」を地図で調べる</div>
+    <div class="node q"><b>◆</b>重要施設の周辺（1,000m）？ → 原則飛べない（同意＋48時間前に警察へ通報）<br><b>◆</b>緊急用務空域？ → 許可があっても飛べない<br><b>◆</b>空港周辺／150m以上／人口集中地区（DID） → 許可が必要</div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP4</b>「飛ばし方」を決める</div>
+    <div class="node q"><b>◆</b>夜間／目視外／人・物から30m未満／催し場所の上空／危険物の輸送／物件の投下 → 承認が必要</div>
+    <div class="arrow">▼</div>
+    <div class="node q"><b>◆</b>STEP3・4でひとつでも当てはまる？（＝特定飛行）</div>
+    <div class="arrow">▼</div>
+    <div class="split">
+      <div class="node yes"><b>はい</b>カテゴリーⅡ<br>STEP5 練習・体制づくり<br>▼<br>STEP6 DIPSで許可・承認の申請<br><span class="small">開庁日10日以上前まで。すすめは3〜4週間前</span></div>
+      <div class="node no"><b>いいえ</b>カテゴリーⅠ<br>許可・承認は不要<br><span class="small">飛行計画の通報・飛行日誌は推奨</span></div>
+    </div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP7</b>土地の持ち主・管理者・条例・警察などの確認</div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP8</b>前日まで：保険・飛行計画の通報・天気・機体・補助者の打合せ</div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP9</b>当日：現場の確認 → 飛行前点検 → 立入管理 → 飛行 → 中止の判断</div>
+    <div class="arrow">▼</div>
+    <div class="node"><b>STEP10</b>飛んだあと：飛行日誌・映像の扱い</div>
+    <div class="arrow">▼ もしものとき</div>
+    <div class="node yes"><b>事故</b>救護 → 連絡 → 国へ報告</div>
+  </div>
+</section>
+
+<section class="win" id="calendar">
+  <h2>逆算カレンダー</h2>
+  <div class="tbl" style="margin-top:12px">
+  <table>
+    <thead><tr><th>飛ばす日から見て</th><th>やること</th><th>根拠</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1〜2か月前</td><td>機体を選ぶ・登録、練習（特定飛行なら10時間以上）、場所と飛ばし方を決める</td><td><span class="tag t-est">目安</span></td></tr>
+      <tr><td class="num">1か月前</td><td>土地の管理者・空港の管理者などへの相談を始める</td><td><span class="tag t-est">目安</span> <span class="tag t-ask">相談</span></td></tr>
+      <tr><td class="num">3〜4週間前</td><td>許可・承認の申請（国交省のすすめ）</td><td><span class="tag t-pub">公式</span></td></tr>
+      <tr class="hot"><td class="num">開庁日10日前まで</td><td>許可・承認の申請のしめきり（土日祝は数えない）</td><td><span class="tag t-pub">公式</span></td></tr>
+      <tr class="hot"><td class="num">48時間前まで</td><td>重要施設の周辺で飛ばすなら、管轄の警察署へ通報</td><td><span class="tag t-law">法律</span></td></tr>
+      <tr><td class="num">前日まで</td><td>飛行計画の通報、保険の確認、天気・風の予報、充電、アプリ・機体の更新、補助者と打合せ</td><td><span class="tag t-pub">公式</span> <span class="tag t-est">目安</span></td></tr>
+      <tr><td class="num">当日</td><td>緊急用務空域の確認、現場確認、飛行前点検、立入管理、飛行、飛行日誌</td><td><span class="tag t-pub">公式</span></td></tr>
+      <tr><td class="num">飛んだあと</td><td>飛行日誌。事故があれば速やかに報告</td><td><span class="tag t-pub">公式</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- STEP1 -->
+<section class="win step" id="s0">
+  <div class="step-head"><span class="stepno">STEP1</span><h3>機体を選ぶ（重さでルールが変わる）</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ul>
+    <li>重さを確認する。「機体本体＋バッテリー」の合計。取り外せる付属品（プロペラガードなど）は含めない <span class="tag t-pub">公式</span></li>
+    <li>技適マークがあるか確認する。電波を出す機器は日本の基準に合ったものだけ使える <span class="tag t-law">法律</span></li>
+    <li>映像をゴーグルで見る機体（FPV）は、使う電波（5.7GHz帯など）によって無線の資格と無線局の開設が必要。一般的な空撮機は不要なことが多い（機体の説明書と総務省の案内で確認）</li>
+  </ul></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>100g以上は航空法の「無人航空機」になり、登録・許可承認などの対象になるため。電波のルールは航空法とは別。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div>なし</div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>100g未満でも、空港の周辺・150m以上・重要施設の周辺・条例で禁止の公園などでは飛ばせない</li>
+    <li>海外通販の機体・ゴーグルは技適がないことがある</li>
+    <li>練習は屋内（四方と上が囲まれた場所）から。屋内は航空法の対象外</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP2 -->
+<section class="win step" id="s1">
+  <div class="step-head"><span class="stepno">STEP2</span><h3>機体登録・登録記号の表示・リモートID</h3><span class="who">100g以上の機体</span></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li>DIPS 2.0（ドローン情報基盤システム）でアカウントを作る</li>
+    <li>機体の登録を申請（所有者・使用者・機体の情報、本人確認）</li>
+    <li>手数料を払う（クレジットカード・ATM・ネットバンキング）</li>
+    <li>登録記号が発行される</li>
+    <li>機体に登録記号を表示（外から見やすい場所）</li>
+    <li>リモートIDに登録記号を書き込む（内蔵型は機体アプリで、外付け型は機器に）</li>
+  </ol>
+  <div class="tbl" style="margin-top:10px"><table>
+    <thead><tr><th>本人確認の方法</th><th>1機目</th><th>同時に申請した2機目以降</th></tr></thead>
+    <tbody>
+      <tr><td>オンライン＋マイナンバーカード（gBizIDも同じ）</td><td class="num">900円</td><td class="num">890円</td></tr>
+      <tr><td>オンライン＋運転免許証・パスポート</td><td class="num">1,450円</td><td class="num">1,050円</td></tr>
+      <tr><td>書類を郵送</td><td class="num">2,400円</td><td class="num">2,000円</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">手数料は2022年時点の案内による目安です。最新の金額はDIPSで確認してください。</p>
+  </div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>だれの機体かを国が把握し、事故や違反のときに持ち主をたどれるようにするため。リモートIDは飛んでいる機体の情報を電波で発信する。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">数日〜1週間</span>（オンライン）<span class="tag t-est">目安</span></p><ul>
+    <li>申請内容の確認・審査はそれぞれ「通常、実働5日以内」の見込み。書面は数週間みておく</li>
+    <li><b>有効期間は3年</b> <span class="tag t-pub">公式</span>。更新の手数料は新規と同じ。期限の1か月前から期限までに更新すると、期限から3年延びる</li>
+  </ul></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>登録していない100g以上の機体は屋外で飛ばせない。登録記号の表示・リモートIDがないのも違反 <span class="tag t-law">法律</span></li>
+    <li>2機目以降の割引は「同じ申請で一緒に登録したとき」だけ</li>
+    <li><b>期限が切れると更新できず、新規登録のやり直し</b>。資格を取ったあとしばらく飛ばしていない人は要確認</li>
+    <li>中古で買った・もらった機体は所有者の変更手続き。手放す・使わなくなったときは抹消の手続き</li>
+    <li>リモートIDが免除されるのは限られた場合だけ（2022年6月19日までに登録した機体、係留飛行、補助者の配置などで区域を管理した飛行など）<span class="tag t-pub">公式</span></li>
+  </ul></div></div>
+</section>
+
+<!-- STEP3 -->
+<section class="win step" id="s2">
+  <div class="step-head"><span class="stepno">STEP3</span><h3>飛ばす「場所」を調べる</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><p>地図（DIPS 2.0の地図、国土地理院の地図など）で次を確認する。</p><ol>
+    <li><b>重要施設の周辺</b>（小型無人機等飛行禁止法）：国会・首相官邸・皇居など国の重要施設、外国公館、自衛隊・在日米軍の施設、対象空港、原子力発電所など。敷地の上空（レッドゾーン）と周囲おおむね<b>1,000m</b>（イエローゾーン、2026年7月14日から）は原則飛ばせない <span class="tag t-law">法律</span>
+      <ul>
+        <li>飛ばせるのは、施設管理者の同意がある場合や、土地の持ち主の同意を得てその上空を飛ばす場合など</li>
+        <li>そのときも<b>48時間前までに管轄の警察署を通して都道府県公安委員会へ通報</b>（地図・同意書の写しを付ける。オンライン通報も可）。海が入るなら管区海上保安本部、防衛施設・対象空港なら施設管理者にも通報 <span class="tag t-pub">公式</span></li>
+      </ul></li>
+    <li><b>緊急用務空域</b>（災害の捜索・救助などで急に指定される）：許可があっても飛ばせない <span class="tag t-pub">公式</span>。前日と当日に確認</li>
+    <li><b>空港などの周辺</b>：許可が必要。申請の前に空港の管理者・空港事務所との調整 <span class="tag t-ask">相談</span></li>
+    <li><b>地表・水面から150m以上</b>：許可が必要。空港事務所（管轄の管制機関）との調整も <span class="tag t-ask">相談</span></li>
+    <li><b>人口集中地区（DID）の上空</b>：許可が必要 <span class="tag t-pub">公式</span></li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>飛行機・ヘリとぶつかる危険、人が多い場所での事故、重要施設へのテロなどを防ぐため。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">半日</span>（地図の確認）。空港・150mの調整は数週間かかることも <span class="tag t-est">目安</span></p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>DIDかどうかは「人が多そうか」ではなく地図で判断する</li>
+    <li>自分の家の庭でも、DIDなら許可が必要</li>
+    <li>150mは「地面・水面から」の高さ。離陸地点からではない（山の斜面・崖・屋上から飛ばすときは要注意）</li>
+    <li>重要施設の周辺のルールは重さに関係なく、100g未満も対象。罰則はレッドゾーンで1年以下の拘禁刑または50万円以下の罰金 <span class="tag t-law">法律</span></li>
+    <li>工業専用地域は2026年6月30日の告示でDIDから外れた。地図は最新のものを見る</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP4 -->
+<section class="win step" id="s3">
+  <div class="step-head"><span class="stepno">STEP4</span><h3>飛ばし方を決める（承認が必要な飛ばし方）</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><p>撮りたい映像や作業から、次の飛ばし方をするか決める。</p><ol>
+    <li><b>夜間</b>（日の入りから日の出まで。国立天文台の時刻）</li>
+    <li><b>目視外</b>（モニター・ゴーグルだけを見る、建物の裏や遠くで見えなくなる）</li>
+    <li><b>人・物件から30m未満</b>（第三者とその建物・車など。自分や関係者・その持ち物は除く）</li>
+    <li><b>催し場所の上空</b>（お祭り・イベントなど）</li>
+    <li><b>危険物の輸送</b></li>
+    <li><b>物件の投下</b>（水や農薬をまくのも含む）</li>
+  </ol>
+  <p style="margin-top:8px"><b>判定</b>　STEP3の空港周辺・150m以上・DID、またはSTEP4にひとつでも当たる → <b>特定飛行</b>。飛行経路の下に第三者を入れない（立入管理）で飛ばす＝<b>カテゴリーⅡ</b> → STEP5へ。どれにも当たらない → <b>カテゴリーⅠ</b>（許可・承認は不要）→ STEP7へ。</p>
+  <p class="small">第三者の上空を立入管理なしで飛ぶ特定飛行はカテゴリーⅢ（一等資格＋第一種機体認証が必要で、初心者は対象外）。</p>
+  </div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>事故の危険が高い飛ばし方なので、国が「安全にできる体制か」を事前に確かめるため。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div>撮影内容を決めるのに数日 <span class="tag t-est">目安</span></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>30mは「人や物との距離」。道路や駐車場の車、電柱・電線・家も「物件」。離陸場所の横に他人の車があるだけで30m未満になる</li>
+    <li>目視外は「補助者が見ていればOK」ではない。<b>操縦者本人が直接見ていない時点で目視外</b></li>
+    <li>夜間はライトがあっても夜間。日の出前の朝焼けの撮影も夜間</li>
+    <li>許可・承認があっても、<b>飛行経路の下（機体が落ちるおそれのある範囲）に第三者を入れない</b>のが基本</li>
+    <li>国家資格（二等以上）＋機体認証があると一部は申請不要になる。初級のうちは「申請する」が基本</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP5 -->
+<section class="win step" id="s4">
+  <div class="step-head"><span class="stepno">STEP5</span><h3>練習と体制づくり</h3><span class="who">特定飛行をする人</span></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li><b>基本の操縦練習 10時間以上</b>（許可のいらない場所で、監督者のもとで）。離着陸（3mの高さまで5回連続）、ホバリング（半径1m以内）、左右・前後20mの移動、水平飛行などがむずかしくなくできるまで <span class="tag t-pub">公式</span></li>
+    <li>仕事で飛ばすなら、対面飛行・10m離れた地点での組み合わせ飛行・8の字飛行（各5回連続）まで <span class="tag t-pub">公式</span></li>
+    <li>夜間・目視外・物件投下をするなら、それぞれの練習（物件投下は練習のあと5回以上の投下実績）</li>
+    <li>練習の記録を残す（日時・場所・時間・内容）</li>
+    <li><b>飛行マニュアル</b>を決める。多くの人は「航空局標準マニュアル」（令和7年12月26日版。場所を特定しない申請用②、場所を特定する申請用①など）を選ぶ。中身を読み、守れるか確かめる</li>
+    <li>補助者の人数と役割（見張り・声かけ・立入管理）を決める</li>
+    <li>コーン・バー・看板、消火器、救急箱をそろえる</li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-do">標準マニュアル②の主な決まり</div><div><ul>
+    <li><b>風速5m/s以上では飛ばさない。5m/s以上の突風が吹いたらすぐ中止</b>（説明書で耐風性能が確認できる場合は例外）</li>
+    <li>雨・雨になりそうなとき、霧などで見通しが悪いときは飛ばさない</li>
+    <li>飛行範囲に第三者が入ったらすぐ中止</li>
+    <li>30mを保てないとき・DID上空ではプロペラガード。付けられなければ補助者を必ず置く</li>
+    <li><b>DID上空の夜間飛行はできない</b>（②）。<b>DID上空の目視外飛行も原則できない</b>（業務上やむを得ない場合だけ、操縦者と常に連絡がとれる補助者を必ず置く）。<b>夜間の目視外飛行はできない</b></li>
+    <li>学校・病院・神社仏閣・観光施設、高速道路・交通量の多い道路・鉄道、高圧線・変電所・電波塔の上空や付近は飛ばさない（②）</li>
+    <li>水の上は、船・泳いでいる人が入ってこないことを確認できたときだけ</li>
+    <li>離着陸場所は人・物件から30m以上離れた場所をできるだけ選ぶ</li>
+    <li>20時間飛ぶごとに部品を点検</li>
+  </ul></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>許可・承認の「条件」になるため。選んだマニュアルを守らないと、許可があっても違反になる。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">1〜2か月</span>（週末だけ練習する場合）。ドローンスクールなら数日 <span class="tag t-est">目安</span></p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>「10時間」は基本操縦を身につけるための練習時間</li>
+    <li>標準マニュアルを選んだのに「風速5m/s」を知らずに飛ばすのはよくある違反</li>
+    <li>補助者は「いるだけ」ではだめ。経路全体を見わたせる位置で、操縦者と連絡がとれること</li>
+    <li>塀・フェンス・コーン・看板で区画をはっきり示し、確実に人を入れないなら補助者の代わりにできる <span class="tag t-pub">公式</span></li>
+  </ul></div></div>
+</section>
+
+<!-- STEP6 -->
+<section class="win step" id="s5">
+  <div class="step-head"><span class="stepno">STEP6</span><h3>DIPS 2.0で許可・承認を申請する</h3><span class="who">特定飛行のとき</span></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li>DIPS 2.0にログイン（機体・操縦者の情報を登録しておくと楽）</li>
+    <li>申請書を作る：目的、日時（期間）、場所（経路）、高度、機体、操縦者（練習の経歴）、飛行マニュアル、安全対策（補助者・立入管理）、保険</li>
+    <li>提出 → 国からの<b>補正（ここを直してください）</b>に対応して再提出</li>
+    <li>許可・承認が出る → 許可書を確認・保存（当日すぐ見せられるように）</li>
+  </ol>
+  <p style="margin-top:8px"><b>個別申請</b>：日時・場所を決めて1回ずつ。<br><b>包括申請</b>：期間は原則3か月、最長1年。場所を決めずにまとめて申請（仕事で何度も飛ばす人向け）<span class="tag t-pub">公式</span></p>
+  </div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>国が「この人・この機体・この体制なら安全に飛ばせる」と確認するため。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">開庁日10日前まで</span>に提出（土日祝を除く）<span class="tag t-pub">公式</span></p><p>補正が入ると延びるので、<b>3〜4週間前の申請</b>がすすめられている <span class="tag t-pub">公式</span>。DIPSは改修で申請を止める期間がある（その間も飛行計画の通報は使える）。</p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>「開庁日10日前」は土日祝を数えない。年末年始・GW・お盆の前は実質3週間以上前</li>
+    <li>包括申請でも、空港周辺・150m以上・DIDでの夜間・夜間の目視外・補助者なしの目視外・趣味目的・研究開発目的は<b>経路を決めた申請</b>が必要。催し場所の上空・DIDでの夜間目視外は<b>日時と経路まで決めた申請</b>が必要 <span class="tag t-pub">公式</span></li>
+    <li>許可書の条件（補助者の配置、マニュアルの内容）を守らないと違反</li>
+    <li>機体・操縦者・期間が変わったら変更申請。期限が近いなら更新申請</li>
+    <li>レベル3.5（補助者なしの目視外）は国家資格・保険などが条件で、初心者向けではない</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP7 -->
+<section class="win step" id="s6">
+  <div class="step-head"><span class="stepno">STEP7</span><h3>土地の持ち主・管理者・条例・警察などを確認する</h3></div>
+  <p>航空法の許可は「空の安全」の許可で、<b>土地を使う許可ではありません</b>。トラブルの多くはここで起きます。</p>
+  <div class="row"><div class="lab l-do">次にやること</div><div>
+  <div class="tbl"><table>
+    <thead><tr><th>場所</th><th>相談先の例</th><th>注意</th></tr></thead>
+    <tbody>
+      <tr><td>他人の土地・建物</td><td>持ち主・管理者</td><td>上空を飛ぶと所有権の問題になることがある</td></tr>
+      <tr><td>公園</td><td>市町村の公園の担当課</td><td>条例で禁止の公園が多い</td></tr>
+      <tr><td>河川敷</td><td>河川事務所・市町村</td><td>河川ごとにルールがある <span class="tag t-ask">相談</span></td></tr>
+      <tr><td>海岸・海水浴場</td><td>県・市町村</td><td>海水浴の時期は特に注意 <span class="tag t-ask">相談</span></td></tr>
+      <tr><td>港・海の上</td><td>港の管理者、海上保安部</td><td>港の中では手続きが必要なことがある <span class="tag t-ask">相談</span></td></tr>
+      <tr><td>国立公園・国定公園</td><td>環境省の事務所・県</td><td>撮影の届け出が必要なことがある <span class="tag t-ask">相談</span></td></tr>
+      <tr><td>公民館・学校などの施設</td><td>施設の管理者</td><td>書面の使用許可が必要なことが多い</td></tr>
+      <tr><td>道路</td><td>警察署・道路管理者</td><td>上空を通過するだけなら原則手続き不要 <span class="tag t-pub">公式</span>。道路の上で離着陸したり、人や機材を置いて交通に影響するときは警察署に相談 <span class="tag t-ask">相談</span></td></tr>
+      <tr><td>鉄道</td><td>鉄道会社</td><td>標準マニュアル②では上空・付近を飛ばさない</td></tr>
+      <tr><td>重要施設の周辺</td><td>施設管理者・警察署</td><td>同意＋48時間前の通報（STEP3）</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:8px">撮影するなら、映る人の顔・家・車のナンバーなど<b>プライバシー</b>に配慮する（総務省のガイドライン）。</p>
+  </div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>苦情・通報・トラブルを防ぎ、管理者のルールに合わせるため。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">1〜3週間</span>（相談）。書面の使用許可は1か月かかることも <span class="tag t-est">目安</span>。STEP6と同時に進める。</p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>「国の許可を取ったからどこでも飛ばせる」は誤り</li>
+    <li>口頭のOKでも、だれに・いつ聞いたかをメモしておく</li>
+    <li>近所の人への一声（あいさつ・チラシ）で、苦情や通報がぐっと減る</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP8 -->
+<section class="win step" id="s7">
+  <div class="step-head"><span class="stepno">STEP8</span><h3>飛ばす前日まで</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li><b>賠償責任保険</b>に入っているか、補償の範囲（対人・対物・機体）を確認。法律の義務ではないが強くすすめられている</li>
+    <li><b>飛行計画の通報</b>（DIPS 2.0）：特定飛行では義務 <span class="tag t-law">法律</span>。日時・経路・高度・速度・登録記号・操縦者・許可承認の番号・立入管理の有無・保険の有無などを入力（1回の通報は最大24時間分）</li>
+    <li>同じ時間・場所に<b>ほかの機体の飛行計画がないか</b>確認。重なったら当事者で調整するか中止 <span class="tag t-pub">公式</span></li>
+    <li><b>天気・風・日の出日の入り</b>の予報を確認（雨・風速5m/s以上・霧なら延期を考える）</li>
+    <li>バッテリーの充電（予備も）、機体・送信機・アプリの更新、プロペラの傷の確認</li>
+    <li>補助者と打合せ：役割、立ち位置、合図（中止・人が来た・機体が見えない）、連絡方法</li>
+    <li>持ち物：許可書、飛行日誌、保険の証券、コーン・看板、消火器、救急箱、風速計、予備のプロペラ</li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>当日あわてないため。通報は、ほかのドローンや有人機とぶつからないようにするため。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">前日〜数日前</span>。通報は「時間に十分なゆとりを持って事前に」<span class="tag t-pub">公式</span>（何時間前という数字はない）</p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>特定飛行で飛行計画を通報しないと罰則（30万円以下の罰金）<span class="tag t-law">法律</span></li>
+    <li>カテゴリーⅠでも通報は「推奨」</li>
+    <li>通報した計画どおりに飛ぶ。予定が変わったら通報もやり直す</li>
+    <li>アプリの更新は当日の現場でやらない</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP9 -->
+<section class="win step" id="s8">
+  <div class="step-head"><span class="stepno">STEP9</span><h3>当日</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li><b>緊急用務空域</b>になっていないか再確認</li>
+    <li>現場の確認：人・車・電線・木・鳥・金属の建物（コンパスが狂う）・電波の障害、離着陸場所の安全</li>
+    <li><b>風</b>の確認（風速計で。5m/s以上なら飛ばさない）、雨・見通し</li>
+    <li><b>飛行前点検</b>：機体の取付け・異音・損傷、プロペラ、バッテリーの残量と膨らみ、送信機、コンパス・GPS、リモートID、SDカード <span class="tag t-pub">公式</span></li>
+    <li><b>立入管理</b>：飛行経路の下と離着陸場所に第三者が入らないよう、コーン・看板・補助者で区切る</li>
+    <li>低い高さで動作確認してから本番</li>
+    <li>飛行中：第三者が入った・有人機が近づいた・電波が弱い・バッテリーが少ない → <b>すぐ止める・離れる・戻す</b></li>
+    <li>着陸後：飛行後点検（付着物・取付け・損傷・異常な発熱）</li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>事故は「当日の小さな変化」から起きるため。</div></div>
+  <div class="row"><div class="lab l-day">目安の時間</div><div><p><span class="day">準備30分〜1時間</span> <span class="tag t-est">目安</span></p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>お酒や薬の影響があるときは飛ばさない <span class="tag t-law">法律</span></li>
+    <li>許可書・飛行日誌はその場で見せられるように持っていく（電子データでも可）</li>
+    <li>警察官などに声をかけられたら、許可書・登録・通報の画面を落ち着いて見せる</li>
+    <li>「せっかく来たから」で無理しない。中止も立派な判断</li>
+  </ul></div></div>
+</section>
+
+<!-- STEP10 -->
+<section class="win step" id="s9">
+  <div class="step-head"><span class="stepno">STEP10</span><h3>飛んだあと</h3></div>
+  <div class="row"><div class="lab l-do">次にやること</div><div><ol>
+    <li><b>飛行日誌</b>を書く：飛行記録（飛ばすたび）、日常点検記録（飛ばすたび）、点検整備記録（整備・改造のたび）の3種類 <span class="tag t-pub">公式</span></li>
+    <li>ヒヤリとしたこと・気づいたことを記録して、次の対策に</li>
+    <li>映像を公開するなら、映った人の顔・家・ナンバーにぼかしを入れる</li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-why">何のため</div><div>機体の状態と自分の経験の記録。許可の更新・国家資格の受験・仕事の実績でも役に立つ。</div></div>
+  <div class="row"><div class="lab l-day">目安の日数</div><div><p><span class="day">当日中</span></p></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>特定飛行で飛行日誌を備えない・書かない・うそを書くと罰則（10万円以下の罰金）<span class="tag t-law">法律</span></li>
+    <li>日誌は<b>機体が登録されている間ずっと</b>続ける。紙でもアプリでもよい</li>
+    <li>特定飛行でなくても書くことがすすめられている</li>
+  </ul></div></div>
+</section>
+
+<!-- 事故 -->
+<section class="win step warn" id="accident">
+  <div class="step-head"><span class="stepno" style="background:var(--red);color:var(--panel)">緊急</span><h3>もしものとき：事故・重大インシデント</h3></div>
+  <div class="row"><div class="lab l-do">順番どおりに</div><div><ol>
+    <li><b>すぐ飛行をやめる</b></li>
+    <li><b>けが人の救護</b>、119番</li>
+    <li>危険の防止（落ちた機体のバッテリーの発火に注意）</li>
+    <li>人や物に被害があれば<b>警察</b>へ（110番）</li>
+    <li><b>国への報告</b>（DIPS 2.0の事故等報告）を<b>速やかに</b>。許可を受けた飛行は許可した官署へ、許可のない飛行は飛んだ場所を管轄する官署へ。時間外は24時間対応の空港事務所へ電話 <span class="tag t-pub">公式</span></li>
+    <li>保険会社へ連絡</li>
+  </ol></div></div>
+  <div class="row"><div class="lab l-why">報告が必要なもの</div><div>事故＝人の死傷（重傷以上）、物件の損壊。重大インシデント＝軽傷、制御不能、飛行中の発火、有人機とのニアミスなど <span class="tag t-pub">公式</span></div></div>
+  <div class="row"><div class="lab l-ng">まちがいやすい</div><div><ul>
+    <li>救護をしないと重い罰則（2年以下の懲役または100万円以下の罰金）。報告しない・うその報告は30万円以下の罰金 <span class="tag t-law">法律</span></li>
+    <li>けががない「ヒヤリ」でも報告が必要な場合がある</li>
+    <li>予定の範囲の外に出てしまったときも報告が必要な場合がある</li>
+  </ul></div></div>
+</section>
+
+<section class="win" id="cases">
+  <h2>ケース別の早見表</h2>
+  <div class="tbl" style="margin-top:12px"><table>
+    <thead><tr><th>ケース</th><th>判定</th><th>必要な手続き</th></tr></thead>
+    <tbody>
+      <tr><td>100g未満の機体で、自宅の部屋で練習</td><td>屋内・航空法の対象外</td><td>なし（家族・物に注意）</td></tr>
+      <tr><td>200gの機体で、DIDでない河川敷で昼間に目で見ながら撮影（人・物から30m以上）</td><td>カテゴリーⅠ</td><td>機体登録、河川の管理者・条例の確認、飛行計画の通報と飛行日誌（推奨）</td></tr>
+      <tr><td>商店街の依頼で、DIDにある公民館の敷地から撮影（人・物から30m未満、建物の裏で見えなくなる）</td><td>カテゴリーⅡ（DID・30m未満・目視外）</td><td>機体登録、10時間以上の練習、許可・承認（包括申請など）、公民館の使用許可、補助者・立入管理、飛行計画の通報、飛行日誌</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="win" id="mistakes">
+  <h2>まちがいやすいポイント10</h2>
+  <ol class="mistakes" style="margin-top:12px">
+    <li><span class="x">✕</span> 100g未満なら何でもOK → <span class="o">○</span> 空港周辺・重要施設周辺・条例は100g未満も対象</li>
+    <li><span class="x">✕</span> 自分の庭ならOK → <span class="o">○</span> DIDなら許可が必要</li>
+    <li><span class="x">✕</span> 150mは離陸地点から → <span class="o">○</span> 地面・水面から</li>
+    <li><span class="x">✕</span> 国の許可があれば公園でもOK → <span class="o">○</span> 管理者・条例は別</li>
+    <li><span class="x">✕</span> 補助者が見ていれば目視内 → <span class="o">○</span> 操縦者本人が見ていなければ目視外</li>
+    <li><span class="x">✕</span> 開庁日10日前＝カレンダーの10日前 → <span class="o">○</span> 土日祝を除く</li>
+    <li><span class="x">✕</span> 包括申請があれば何でも飛べる → <span class="o">○</span> 経路や日時を決めて申請する飛行がある</li>
+    <li><span class="x">✕</span> 許可を取れば通報は不要 → <span class="o">○</span> 特定飛行のたびに飛行計画の通報</li>
+    <li><span class="x">✕</span> 登録は一度すれば終わり → <span class="o">○</span> 3年ごとに更新、切れると新規登録</li>
+    <li><span class="x">✕</span> 標準マニュアルは選ぶだけ → <span class="o">○</span> 風速5m/s・DIDで夜間目視外をしないなど、中身を守る</li>
+  </ol>
+</section>
+
+<section class="win" id="check">
+  <h2>飛行前チェックリスト</h2>
+  <h3 style="margin-top:12px;color:var(--sky)">前日まで</h3>
+  <ul class="check">
+    <li>機体登録の有効期限</li><li>許可書（必要なとき）</li><li>飛行計画の通報</li><li>他の飛行計画と重なっていない</li><li>土地の管理者の許可</li><li>保険</li><li>天気・風・日の出日の入り</li><li>充電・アプリの更新</li><li>補助者と打合せ</li>
+  </ul>
+  <h3 style="margin-top:12px;color:var(--sky)">当日</h3>
+  <ul class="check">
+    <li>緊急用務空域</li><li>風速5m/s未満</li><li>雨・霧なし</li><li>機体・プロペラ・バッテリー・送信機</li><li>コンパス・GPS・リモートID</li><li>立入管理（コーン・看板・補助者）</li><li>許可書・飛行日誌を持っている</li><li>お酒・薬の影響なし</li>
+  </ul>
+  <h3 style="margin-top:12px;color:var(--sky)">飛んだあと</h3>
+  <ul class="check">
+    <li>飛行後点検</li><li>飛行日誌</li><li>ヒヤリの記録</li>
+  </ul>
+</section>
+
+<section class="win" id="sources">
+  <h2>出典</h2>
+  <ul class="src" style="margin-top:12px">
+    <li>国土交通省「無人航空機の飛行ルール」<a href="https://www.mlit.go.jp/koku/koku_tk10_000003.html">mlit.go.jp/koku/koku_tk10_000003.html</a></li>
+    <li>国土交通省「飛行許可・承認の申請」（飛行申請フロー、開庁日10日前・3〜4週間）<a href="https://www.mlit.go.jp/koku/koku_fr10_000042.html">mlit.go.jp/koku/koku_fr10_000042.html</a></li>
+    <li>国土交通省「飛行禁止空域と飛行の方法」<a href="https://www.mlit.go.jp/koku/koku_fr10_000041.html">mlit.go.jp/koku/koku_fr10_000041.html</a></li>
+    <li>国土交通省「手続きの流れ」（カテゴリー別）<a href="https://www.mlit.go.jp/common/001579420.pdf">mlit.go.jp/common/001579420.pdf</a></li>
+    <li>国土交通省「飛行カテゴリー決定のフロー図」<a href="https://www.mlit.go.jp/common/001582831.png">mlit.go.jp/common/001582831.png</a></li>
+    <li>国土交通省「包括申請のご案内」<a href="https://www.mlit.go.jp/koku/content/001490919.pdf">mlit.go.jp/koku/content/001490919.pdf</a></li>
+    <li>航空局標準マニュアル（令和7年12月26日版）② <a href="https://www.mlit.go.jp/common/001975920.pdf">001975920.pdf</a> ／ ① <a href="https://www.mlit.go.jp/common/001975917.pdf">001975917.pdf</a></li>
+    <li>審査要領（カテゴリーⅡ、令和8年9月29日改正）<a href="https://www.mlit.go.jp/koku/content/001866503.pdf">mlit.go.jp/koku/content/001866503.pdf</a></li>
+    <li>飛行計画の通報要領（令和8年3月31日最終改正）<a href="https://www.mlit.go.jp/common/001878897.pdf">mlit.go.jp/common/001878897.pdf</a></li>
+    <li>飛行日誌の取扱要領 <a href="https://www.mlit.go.jp/koku/content/001574394.pdf">mlit.go.jp/koku/content/001574394.pdf</a></li>
+    <li>事故等の報告要領 <a href="https://www.mlit.go.jp/koku/content/001520661.pdf">mlit.go.jp/koku/content/001520661.pdf</a></li>
+    <li>無人航空機登録ポータル <a href="https://www.mlit.go.jp/koku/drone/">mlit.go.jp/koku/drone/</a></li>
+    <li>ドローンを活用した荷物等配送に関するガイドライン（道路の上空の通過）<a href="https://www.mlit.go.jp/common/001396693.pdf">mlit.go.jp/common/001396693.pdf</a></li>
+    <li>無人航空機の飛行の安全に関する教育・ガイドライン <a href="https://www.cab.mlit.go.jp/tcab/img/000/drone/1guideline.pdf">cab.mlit.go.jp</a></li>
+    <li>警察庁「小型無人機等飛行禁止法」<a href="https://www.npa.go.jp/bureau/security/kogatamujinki/index.html">npa.go.jp</a>・通報の手続き <a href="https://www.npa.go.jp/bureau/security/kogatamujinki/tsuhou.html">tsuhou.html</a></li>
+    <li>機体登録の手数料（2022年時点の解説）<a href="https://sekido-rc.com/blog/2021/12/21/control_0009/">sekido-rc.com</a></li>
+  </ul>
+</section>
+
+<footer>ドローンRPG〜初級編〜 クリア特典 ／ 2026年11月版</footer>
+</div>
