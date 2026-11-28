@@ -6,7 +6,10 @@ window.jtagTrack = function (name) {
   if (window.jtagAnalyticsReady) window.gtag('event', name);
 };
 
-if (/^G-[A-Z0-9]{6,}$/.test(GA_ID) && GA_ID !== 'G-XXXXXXXXXX') {
+// 本番のサイト（jtag-works.jp）以外（パソコンでの確認など）では記録しない
+const IS_LIVE_SITE = /^(www\.)?jtag-works\.jp$/.test(location.hostname);
+
+if (IS_LIVE_SITE && /^G-[A-Z0-9]{6,}$/.test(GA_ID) && GA_ID !== 'G-XXXXXXXXXX') {
   const s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
